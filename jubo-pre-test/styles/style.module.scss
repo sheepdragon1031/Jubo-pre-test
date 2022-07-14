@@ -1,0 +1,24 @@
+$baseLinear: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2)), linear-gradient(101deg, #78e4ff, #f97af5);
+
+.card__Grid{
+    height: 15rem;
+    width: 100%;
+    -webkit-text-fill-color: inherit !important;
+    // background-image: $baseLinear;
+    background-size: 500% auto;
+    background-repeat: repeat;
+    -webkit-text-fill-color: transparent;
+    animation: slide 8s ease-in-out  infinite ; 
+  }
+   @keyframes slide {
+    0% {
+     background-position:0% 50%;
+    }
+    50% {
+      background-position:100% 50%;
+    }
+    100%{
+      background-position:0% 50%;
+    }
+    
+  }
