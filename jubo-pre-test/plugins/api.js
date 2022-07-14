@@ -14,7 +14,7 @@ export const getList = async (path) => {
 export const getItem = async (path, id) => {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/${path}/${id}?populate=orders`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/${path}/${id}?populate=orders&sort=createdAt:desc`
     )
     return res
   } catch (err) {
