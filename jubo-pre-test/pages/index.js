@@ -50,15 +50,20 @@ export default function Home() {
 
   const fetchData = async () => {
     const res = await getList("patients")
-    res.data.data.forEach((element) => {
-      setColorList((prev) => [
-        ...prev,
-        `linear-gradient(170deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2)), linear-gradient(100deg, hsla(${
-          Math.random() * 360
-        }, 100%, 50%, 0.6), hsla(${Math.random() * 360}, 100%, 50%, 0.5));
-      `
-      ])
-    })
+    try {
+      res.data.data.forEach((element) => {
+        setColorList((prev) => [
+          ...prev,
+          `linear-gradient(170deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2)), linear-gradient(100deg, hsla(${
+            Math.random() * 360
+          }, 100%, 50%, 0.6), hsla(${Math.random() * 360}, 100%, 50%, 0.5));
+        `
+        ])
+      })
+    } catch (e) {
+      console.log(e)
+    }
+
     setListPatient(res.data)
     return res
   }
@@ -124,66 +129,68 @@ export default function Home() {
                     bgcolor: "background.paper"
                   }}
                 >
-                  {getListPatient.data.map((item, index) => {
-                    return (
-                      <Container
-                        maxWidth="sm"
-                        sx={{ p: 0 }}
-                        key={`Container--Card__${item.id}`}
-                      >
-                        <Card sx={{ m: "auto", my: 2 }} variant="outlined">
-                          <CardActionArea
-                            onClick={() => handleClickOpen({ id: item.id })}
+                  {getListPatient.data
+                    ? getListPatient.data.map((item, index) => {
+                        return (
+                          <Container
+                            maxWidth="sm"
+                            sx={{ p: 0 }}
+                            key={`Container--Card__${item.id}`}
                           >
-                            <Box
-                              className={styles.card__Grid}
-                              sx={{
-                                backgroundImage: colorList[index]
-                              }}
-                            >
-                              <Stack
-                                direction="column"
-                                justifyContent="center"
-                                alignItems="center"
-                                spacing={2}
-                                sx={{
-                                  height: "100%"
-                                }}
+                            <Card sx={{ m: "auto", my: 2 }} variant="outlined">
+                              <CardActionArea
+                                onClick={() => handleClickOpen({ id: item.id })}
                               >
-                                <Typography
-                                  variant="h2"
-                                  weight="bold"
+                                <Box
+                                  className={styles.card__Grid}
                                   sx={{
-                                    color: "#fff"
+                                    backgroundImage: colorList[index]
                                   }}
                                 >
-                                  {item.attributes.name}
-                                </Typography>
-                              </Stack>
-                            </Box>
-                            <CardContent sx={{ px: 0 }}>
-                              <ListItem>
-                                <ListItemAvatar>
-                                  <Avatar>
-                                    <Avatar
+                                  <Stack
+                                    direction="column"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    spacing={2}
+                                    sx={{
+                                      height: "100%"
+                                    }}
+                                  >
+                                    <Typography
+                                      variant="h2"
+                                      weight="bold"
                                       sx={{
-                                        background: colorList[index]
+                                        color: "#fff"
                                       }}
                                     >
-                                      {item.attributes.name.slice(0, 2)}
-                                    </Avatar>
-                                  </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText>
-                                  {item.attributes.name}
-                                </ListItemText>
-                              </ListItem>
-                            </CardContent>
-                          </CardActionArea>
-                        </Card>
-                      </Container>
-                    )
-                  })}
+                                      {item.attributes.name}
+                                    </Typography>
+                                  </Stack>
+                                </Box>
+                                <CardContent sx={{ px: 0 }}>
+                                  <ListItem>
+                                    <ListItemAvatar>
+                                      <Avatar>
+                                        <Avatar
+                                          sx={{
+                                            background: colorList[index]
+                                          }}
+                                        >
+                                          {item.attributes.name.slice(0, 2)}
+                                        </Avatar>
+                                      </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText>
+                                      {item.attributes.name}
+                                    </ListItemText>
+                                  </ListItem>
+                                </CardContent>
+                              </CardActionArea>
+                            </Card>
+                          </Container>
+                        )
+                      })
+                    : null}
                 </List>
               </Grid>
             </Grid>
@@ -242,9 +249,7 @@ export default function Home() {
                   </Stack>
                 </cardActions>
               </Card>
-            ) : (
-              <> </>
-            )}
+            ) : null}
 
             {getPatient.data.attributes.orders.data.length > 0 ? (
               getPatient.data.attributes.orders.data.map((item) => {
