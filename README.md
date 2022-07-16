@@ -29,7 +29,6 @@ cd jubo-pre-test && yarn install
 cd jubo-cms && yarn install
 ```
 
-
 ### 3. Create a .env file and copy the contents from .env.example
 
 Frontend directory Create and copy the Google client credentials to env
@@ -46,6 +45,13 @@ cd jubo-pre-test && yarn dev
 
 ```sh
 cd jubo-cms && yarn develop
+```
+
+```
+登入帳號
+admin@admin.cc
+登入密碼
+adminJubo123
 ```
 
 # page
