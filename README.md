@@ -30,10 +30,7 @@ cd jubo-cms && yarn install
 ```
 
 ### 3. Create a .env file and copy the contents from .env.example
-
-Frontend directory Create and copy the Google client credentials to env
  
-Backend set HOST to .env and config/middleware.js origin 
 
 ### 4. Start the frontend and strapiurl application
 
